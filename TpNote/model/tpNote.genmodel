@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/TpNote/src-gen" creationIcons="false" editDirectory="/TpNote.edit/src-gen"
+    editorDirectory="/TpNote.editor/src-gen" modelPluginID="TpNote" modelName="TpNote"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>tpNote.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="TpNote" disposableProviderFactory="true" ecorePackage="tpNote.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="tpNote.ecore#//typeGraph">
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/BarChart"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/AreaChart"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/BubbleChart"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/LineChart"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/ScatterChart"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/RadarChart"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/MixedChartTypes"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/PolarAreaChart"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/Doughnut"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeGraph/Pie"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="tpNote.ecore#//typeDonnees">
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeDonnees/int"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeDonnees/string"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeDonnees/float"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//typeDonnees/Date"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="tpNote.ecore#//comOperator">
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//comOperator/inf"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//comOperator/sup"/>
+      <genEnumLiterals ecoreEnumLiteral="tpNote.ecore#//comOperator/equal"/>
+    </genEnums>
+    <genClasses ecoreClass="tpNote.ecore#//Programme">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tpNote.ecore#//Programme/input"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tpNote.ecore#//Programme/output"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tpNote.ecore#//Programme/filtercondition"/>
+    </genClasses>
+    <genClasses ecoreClass="tpNote.ecore#//File">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tpNote.ecore#//File/keep"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//File/path"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//File/delimiter"/>
+    </genClasses>
+    <genClasses ecoreClass="tpNote.ecore#//Graph">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//Graph/type"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference tpNote.ecore#//Graph/xAxis"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference tpNote.ecore#//Graph/yAxis"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//Graph/title"/>
+    </genClasses>
+    <genClasses ecoreClass="tpNote.ecore#//extractedData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//extractedData/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//extractedData/typeData"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//extractedData/index"/>
+    </genClasses>
+    <genClasses ecoreClass="tpNote.ecore#//NewEClass5"/>
+    <genClasses ecoreClass="tpNote.ecore#//HTMLFile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tpNote.ecore#//HTMLFile/graph"/>
+    </genClasses>
+    <genClasses ecoreClass="tpNote.ecore#//filterCondition"/>
+    <genClasses ecoreClass="tpNote.ecore#//Constant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//Constant/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//Constant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="tpNote.ecore#//BinaryBooleanExp">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tpNote.ecore#//BinaryBooleanExp/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tpNote.ecore#//BinaryBooleanExp/lhs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tpNote.ecore#//BinaryBooleanExp/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="tpNote.ecore#//colRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tpNote.ecore#//colRef/extracteddata"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

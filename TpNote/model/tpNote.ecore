@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="tpNote" nsURI="http://www.example.org/tpNote" nsPrefix="tpNote">
+  <eClassifiers xsi:type="ecore:EClass" name="Programme">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="input" lowerBound="1" eType="#//File"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="output" lowerBound="1"
+        eType="#//HTMLFile" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="filtercondition" upperBound="-1"
+        eType="#//filterCondition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="File">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="keep" lowerBound="1" upperBound="-1"
+        eType="#//extractedData" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="delimiter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Graph">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//typeGraph"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xAxis" lowerBound="1" eType="#//extractedData"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="yAxis" upperBound="-1"
+        eType="#//extractedData"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="extractedData">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeData" eType="#//typeDonnees"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NewEClass5"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="typeGraph">
+    <eLiterals name="BarChart"/>
+    <eLiterals name="AreaChart" value="1"/>
+    <eLiterals name="BubbleChart" value="2"/>
+    <eLiterals name="LineChart" value="3"/>
+    <eLiterals name="ScatterChart" value="4"/>
+    <eLiterals name="RadarChart" value="5"/>
+    <eLiterals name="MixedChartTypes" value="6"/>
+    <eLiterals name="PolarAreaChart" value="7"/>
+    <eLiterals name="Doughnut" value="8" literal="Doughnut"/>
+    <eLiterals name="Pie" value="9"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="typeDonnees">
+    <eLiterals name="int"/>
+    <eLiterals name="string" value="1" literal="string"/>
+    <eLiterals name="float" value="2"/>
+    <eLiterals name="Date" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HTMLFile">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="graph" lowerBound="1" upperBound="-1"
+        eType="#//Graph" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="filterCondition" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Constant" eSuperTypes="#//filterCondition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//typeDonnees"
+        defaultValueLiteral="int"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BinaryBooleanExp" eSuperTypes="#//filterCondition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//comOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lhs" lowerBound="1" eType="#//filterCondition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" lowerBound="1" eType="#//filterCondition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="comOperator">
+    <eLiterals name="inf"/>
+    <eLiterals name="sup" value="1"/>
+    <eLiterals name="equal" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="colRef" eSuperTypes="#//filterCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extracteddata" eType="#//extractedData"/>
+  </eClassifiers>
+</ecore:EPackage>

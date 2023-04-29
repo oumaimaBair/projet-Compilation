@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: fr.unice.cotedazur.l3ia.chart
+Bundle-ManifestVersion: 2
+Bundle-Name: fr.unice.cotedazur.l3ia.chart
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: fr.unice.cotedazur.l3ia.chart; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: TpNote,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: fr.unice.cotedazur.l3ia.chart.generator,
+ fr.unice.cotedazur.l3ia.chart.scoping,
+ fr.unice.cotedazur.l3ia.chart.parser.antlr,
+ fr.unice.cotedazur.l3ia.chart.parser.antlr.internal,
+ fr.unice.cotedazur.l3ia.chart.formatting2,
+ fr.unice.cotedazur.l3ia.chart.serializer,
+ fr.unice.cotedazur.l3ia.chart.validation,
+ fr.unice.cotedazur.l3ia.chart,
+ fr.unice.cotedazur.l3ia.chart.services
+Import-Package: org.apache.log4j
