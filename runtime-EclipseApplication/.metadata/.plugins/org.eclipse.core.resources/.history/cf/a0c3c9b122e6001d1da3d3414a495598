@@ -1,0 +1,13 @@
+Programme {
+	
+	path="C:/Users/hp/Downloads/factbook.csv"
+	delimiter=";"
+	keep(colName="model":string index= 1,colName="power":float index=37,colName="telephone":int index=41)
+	where ((power > Const float = "5.5" ))
+	type = RadarChart
+	title = "title" 
+	xAxis = model 
+	yAxis = power 
+	
+	 
+	}

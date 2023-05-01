@@ -105,20 +105,16 @@ ruleProgramme returns [EObject current=null]
 			)
 		)
 		(
-			otherlv_3='where'
+			otherlv_3='where('
 			{
 				newLeafNode(otherlv_3, grammarAccess.getProgrammeAccess().getWhereKeyword_3_0());
-			}
-			otherlv_4='('
-			{
-				newLeafNode(otherlv_4, grammarAccess.getProgrammeAccess().getLeftParenthesisKeyword_3_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getProgrammeAccess().getFilterconditionFilterConditionParserRuleCall_3_2_0());
+						newCompositeNode(grammarAccess.getProgrammeAccess().getFilterconditionFilterConditionParserRuleCall_3_1_0());
 					}
-					lv_filtercondition_5_0=rulefilterCondition
+					lv_filtercondition_4_0=rulefilterCondition
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getProgrammeRule());
@@ -126,23 +122,23 @@ ruleProgramme returns [EObject current=null]
 						add(
 							$current,
 							"filtercondition",
-							lv_filtercondition_5_0,
+							lv_filtercondition_4_0,
 							"fr.unice.cotedazur.l3ia.chart.MyDsl.filterCondition");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_6=','
+				otherlv_5='&&'
 				{
-					newLeafNode(otherlv_6, grammarAccess.getProgrammeAccess().getCommaKeyword_3_3_0());
+					newLeafNode(otherlv_5, grammarAccess.getProgrammeAccess().getAmpersandAmpersandKeyword_3_2_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getProgrammeAccess().getFilterconditionFilterConditionParserRuleCall_3_3_1_0());
+							newCompositeNode(grammarAccess.getProgrammeAccess().getFilterconditionFilterConditionParserRuleCall_3_2_1_0());
 						}
-						lv_filtercondition_7_0=rulefilterCondition
+						lv_filtercondition_6_0=rulefilterCondition
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getProgrammeRule());
@@ -150,16 +146,16 @@ ruleProgramme returns [EObject current=null]
 							add(
 								$current,
 								"filtercondition",
-								lv_filtercondition_7_0,
+								lv_filtercondition_6_0,
 								"fr.unice.cotedazur.l3ia.chart.MyDsl.filterCondition");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
 			)*
-			otherlv_8=')'
+			otherlv_7=')'
 			{
-				newLeafNode(otherlv_8, grammarAccess.getProgrammeAccess().getRightParenthesisKeyword_3_4());
+				newLeafNode(otherlv_7, grammarAccess.getProgrammeAccess().getRightParenthesisKeyword_3_3());
 			}
 		)?
 		(
@@ -167,7 +163,7 @@ ruleProgramme returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getProgrammeAccess().getOutputHTMLFileParserRuleCall_4_0());
 				}
-				lv_output_9_0=ruleHTMLFile
+				lv_output_8_0=ruleHTMLFile
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getProgrammeRule());
@@ -175,15 +171,15 @@ ruleProgramme returns [EObject current=null]
 					set(
 						$current,
 						"output",
-						lv_output_9_0,
+						lv_output_8_0,
 						"fr.unice.cotedazur.l3ia.chart.MyDsl.HTMLFile");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_10='}'
+		otherlv_9='}'
 		{
-			newLeafNode(otherlv_10, grammarAccess.getProgrammeAccess().getRightCurlyBracketKeyword_5());
+			newLeafNode(otherlv_9, grammarAccess.getProgrammeAccess().getRightCurlyBracketKeyword_5());
 		}
 	)
 ;
@@ -670,7 +666,7 @@ ruleGraph returns [EObject current=null]
 			)
 		)
 		(
-			otherlv_6='yAxis ='
+			otherlv_6='yAxis = ('
 			{
 				newLeafNode(otherlv_6, grammarAccess.getGraphAccess().getYAxisKeyword_4_0());
 			}
@@ -691,9 +687,9 @@ ruleGraph returns [EObject current=null]
 				)
 			)
 			(
-				otherlv_8='yAxis ='
+				otherlv_8=','
 				{
-					newLeafNode(otherlv_8, grammarAccess.getGraphAccess().getYAxisKeyword_4_2_0());
+					newLeafNode(otherlv_8, grammarAccess.getGraphAccess().getCommaKeyword_4_2_0());
 				}
 				(
 					(
@@ -712,6 +708,10 @@ ruleGraph returns [EObject current=null]
 					)
 				)
 			)*
+			otherlv_10=')'
+			{
+				newLeafNode(otherlv_10, grammarAccess.getGraphAccess().getRightParenthesisKeyword_4_3());
+			}
 		)?
 	)
 ;

@@ -38,7 +38,7 @@ public class MyDslParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getComOperatorAccess().getAlternatives(), "rule__ComOperator__Alternatives");
 			builder.put(grammarAccess.getProgrammeAccess().getGroup(), "rule__Programme__Group__0");
 			builder.put(grammarAccess.getProgrammeAccess().getGroup_3(), "rule__Programme__Group_3__0");
-			builder.put(grammarAccess.getProgrammeAccess().getGroup_3_3(), "rule__Programme__Group_3_3__0");
+			builder.put(grammarAccess.getProgrammeAccess().getGroup_3_2(), "rule__Programme__Group_3_2__0");
 			builder.put(grammarAccess.getFileAccess().getGroup(), "rule__File__Group__0");
 			builder.put(grammarAccess.getFileAccess().getGroup_0(), "rule__File__Group_0__0");
 			builder.put(grammarAccess.getFileAccess().getGroup_1(), "rule__File__Group_1__0");
@@ -59,8 +59,8 @@ public class MyDslParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getBinaryBooleanExpAccess().getGroup(), "rule__BinaryBooleanExp__Group__0");
 			builder.put(grammarAccess.getColRefAccess().getGroup(), "rule__ColRef__Group__0");
 			builder.put(grammarAccess.getProgrammeAccess().getInputAssignment_2(), "rule__Programme__InputAssignment_2");
-			builder.put(grammarAccess.getProgrammeAccess().getFilterconditionAssignment_3_2(), "rule__Programme__FilterconditionAssignment_3_2");
-			builder.put(grammarAccess.getProgrammeAccess().getFilterconditionAssignment_3_3_1(), "rule__Programme__FilterconditionAssignment_3_3_1");
+			builder.put(grammarAccess.getProgrammeAccess().getFilterconditionAssignment_3_1(), "rule__Programme__FilterconditionAssignment_3_1");
+			builder.put(grammarAccess.getProgrammeAccess().getFilterconditionAssignment_3_2_1(), "rule__Programme__FilterconditionAssignment_3_2_1");
 			builder.put(grammarAccess.getProgrammeAccess().getOutputAssignment_4(), "rule__Programme__OutputAssignment_4");
 			builder.put(grammarAccess.getFileAccess().getPathAssignment_0_1(), "rule__File__PathAssignment_0_1");
 			builder.put(grammarAccess.getFileAccess().getDelimiterAssignment_1_1(), "rule__File__DelimiterAssignment_1_1");

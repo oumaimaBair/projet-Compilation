@@ -8,59 +8,45 @@ Programme returns Programme:
 	'Programme'
 	'{'
 		 input=File
-		('where' '(' filtercondition+=filterCondition ( "," filtercondition+=filterCondition)* ')' )?
+		('where('  filtercondition+=filterCondition ( "&&" filtercondition+=filterCondition)* ')' )?
 		 output=HTMLFile
 	'}';
-
-
 
 filterCondition returns filterCondition:
 	Constant | BinaryBooleanExp | colRef;
 
-
-
 File returns File:
-
-	
 		('path=' path=EString)?
 		('delimiter=' delimiter=EString)?
 		'keep('  keep+=extractedData ( "," keep+=extractedData)* ')' 
 	;
 
 HTMLFile returns HTMLFile:
-	
-	
-		  graph+=Graph ( "," graph+=Graph)*  
-	;
+		  graph+=Graph ( "," graph+=Graph)*  ;
 
 extractedData returns extractedData:
 	{extractedData}
-	
 	'colName='name=EString
-	
 		(':' typeData=typeDonnees)?
 		('index=' index=EInt)?
 	;
-
 EString returns ecore::EString:
 	STRING | ID;
 
 enum typeDonnees returns typeDonnees:
 				int = 'int' | string = 'string' | float = 'float' | Date = 'Date';
-
 EInt returns ecore::EInt:
 	'-'? INT;
-
 Graph returns Graph:
 		('type =' type=typeGraph)?
 		('title =' title=EString)?
 		'xAxis =' xAxis=[extractedData|EString]
-		('yAxis =' yAxis+=[extractedData|EString] ( "yAxis =" yAxis+=[extractedData|EString])*)?
-		//'yAxis =' ( "yAxis=" yAxis+=[extractedData|EString])*  
-	;
+		('yAxis = (' yAxis+=[extractedData|EString] ( "," yAxis+=[extractedData|EString])*')')? ;
 
 enum typeGraph returns typeGraph:
-				BarChart = 'BarChart' | AreaChart = 'AreaChart' | BubbleChart = 'BubbleChart' | LineChart = 'LineChart' | ScatterChart = 'ScatterChart' | RadarChart = 'RadarChart' | MixedChartTypes = 'MixedChartTypes' | PolarAreaChart = 'PolarAreaChart' | Pie = 'Pie' | Doughnut = 'Doughnut';
+	BarChart = 'BarChart' | AreaChart = 'AreaChart' | BubbleChart = 'BubbleChart' | LineChart = 'LineChart' 
+	| ScatterChart = 'ScatterChart' | RadarChart = 'RadarChart' | MixedChartTypes = 'MixedChartTypes' 
+	| PolarAreaChart = 'PolarAreaChart' | Pie = 'Pie' | Doughnut = 'Doughnut';
 
 Constant returns Constant:
 	{Constant}

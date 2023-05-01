@@ -18,6 +18,10 @@ import tpNote.Graph
 import java.util.HashMap
 import java.util.Map
 import javax.sound.sampled.BooleanControl.Type
+import tpNote.BinaryBooleanExp
+
+import tpNote.Constant
+import tpNote.colRef
 
 /**
  * Generates code from your model files on save.
@@ -27,42 +31,34 @@ import javax.sound.sampled.BooleanControl.Type
 class MyDslGenerator extends AbstractGenerator {
     
     
-
+    // Helper function to check if a column type is numeric
+		def boolean isNumericType(String type){
+		    return (type.equals("DOUBLE") || type.equals("FLOAT") || type.equals("INT") || type.equals("long") || type.equals("short"))
+		}
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		
 		var Programme program = resource.allContents.head as Programme
 		var String path = program.input.path
 		var String delimiteur = program.input.delimiter
 
-    
+        
         
 		// read csv file		
 		var List<String> fileContent = new ArrayList();
 		try (var BufferedReader br = new BufferedReader(new FileReader(path))) {
 		    var String line = br.readLine()
-//		    var int size = line.split(delimiteur).size()
 		    while ( line !== null ) {
-//		    	var String[] splitLine = line.split(delimiteur)
-//		    	var int hasEmptyString = 0
-//		    	if (splitLine.size() > 0) {
-//		    		for (String str: splitLine){
-//		    		if (str.isEmpty()){
-//		    			hasEmptyString += 1 
-//		    			}
-//			    	}
-//			    	if (hasEmptyString === 0 ){
-//			    		fileContent.add(line);
-//			    	}
-//		    	}
 		    	fileContent.add(line);
 		    	line = br.readLine()
 		    	
 		    }
 		}
-		
+		// Extract the data that must be kept
 		var EList<extractedData> keep = program.input.keep
 		var data = new StringBuilder()
 		data.append("const data = [\n")   
+		
+		
 		
 		var String test  = ""
 		var List<String> colTypes = fileContent.get(1).split(delimiteur)
@@ -82,7 +78,7 @@ class MyDslGenerator extends AbstractGenerator {
 					if (line.get(index).isEmpty()){
 						hasEmptyString +=1
 					}
-					if (colTypes.get(index).equals("String") || colTypes.get(index).equals("STRING") || colTypes.get(index).equals("string")){
+					if (colTypes.get(index).equals("String") || colTypes.get(index).equals("STRING") || colTypes.get(index).equals("string")|| colTypes.get(index).equals("CAT")){
 						jsonLine.append("\"")
 						jsonLine.append(line.get(index))
 						jsonLine.append("\"")
@@ -109,19 +105,82 @@ class MyDslGenerator extends AbstractGenerator {
 		} 
 		data.append("]")
 		
+		 
+		 
+		// define operator mapping
+		var Map<String, String> operateurs = new HashMap<String, String>()
+		
+		operateurs.put("inf", "<")
+		operateurs.put("sup", ">")
+		operateurs.put("equal", "===") 
+		 
+		var List<String> filterCondtions = new ArrayList()
+		for (var int k=0; k < program.filtercondition.size(); k++){
+			var StringBuilder s = new StringBuilder()
+			var  BinaryBooleanExp booleanExp = program.filtercondition.get(k)  as BinaryBooleanExp
+			var colRef col = booleanExp.lhs as colRef
+			var Constant constant = booleanExp.rhs as Constant
+			s.append("item."+col.extracteddata.name).append(" ")
+			 
+			val String op = booleanExp.operator.getName()
+			s.append(operateurs.get(op)).append(" ")
+			if (constant.type.getName().equals("string")){
+				s.append("\"" + constant.value + "\"").append(" ")
+			}else{
+				s.append(constant.value)
+			}
+		 
+			filterCondtions.add(s.toString())
+		}
+		
+		// filter the data
+		var dataFilter = new StringBuilder()
+		var boolean hasFilter = program.filtercondition.size() > 0 
+		if ( program.filtercondition.size() > 0 ){
+			dataFilter.append('''
+			const filteredData = data.filter(item => {
+				if («filterCondtions.join(" && ")»){
+					return item
+				}
+				
+			})
+			''')
+		}
+		
 		
 		var Map<String, String> chartTypes = new HashMap<String, String>()
+		var graphiquesNum = newArrayList
+		var graphiquesCat = newArrayList
+         graphiquesNum.addAll(newArrayList("BubbleChart","ScatterChart"))
+		 graphiquesCat.addAll(newArrayList("PolarAreaChart","LineChart","BarChart", "AreaChart","BubbleChart","MixedChartTypes","RadarChart","Pie","Doughnut"))
 		
-		chartTypes.put("BarChart", "bar")
-		chartTypes.put("AreaChart", "area")
-		chartTypes.put("BubbleChart", "bubble")
-		chartTypes.put("LineChart", "line")
+		// Check column types
+		var boolean allNumeric = true
+		for (var int j = 0; j < keep.size(); j++){
+			var index = keep.get(j).index
+		    
+		    if (!isNumericType(colTypes.get(index))){
+		        allNumeric = false
+		        
+		    }
+		}
+		if (allNumeric){
+		
+		
 		chartTypes.put("ScatterChart", "scatter")
+		chartTypes.put("BubbleChart", "bubble")
+		}
+		else{
+		chartTypes.put("LineChart", "line")
+		chartTypes.put("AreaChart", "area")
+		chartTypes.put("PolarAreaChart", "polarArea")
 		chartTypes.put("MixedChartTypes", "mixed")
 		chartTypes.put("RadarChart", "radar")
 		chartTypes.put("Pie", "pie")
 		chartTypes.put("Doughnut", "doughnut")
-		
+		chartTypes.put("BarChart", "bar")
+		}
+		// generation of graphics
 		var List<String> keys = new ArrayList()
 		var EList<Graph> graphes = program.output.graph
 		var graph = graphes.get(0)
@@ -132,18 +191,20 @@ class MyDslGenerator extends AbstractGenerator {
 		for (extractedData e: yAxis){
 			keys.add(e.name)
 		}
-		var graphGenerate = new StringBuilder()
-		graphGenerate.append("\n new Chart( \n")
-		graphGenerate.append("document.getElementById('myChart'),")
-		graphGenerate.append("{\n")
-		graphGenerate.append("type : ")
-		graphGenerate.append("'").append(chartTypes.get(type)).append("'")
-		graphGenerate.append(", \n")
-		graphGenerate.append("data: { \n labels : ")
-		graphGenerate.append("data.map(row => row.")
-		graphGenerate.append(xAxis)
-		graphGenerate.append("), \n")
-		graphGenerate.append("datasets: [")
+		
+			var graphGenerate = new StringBuilder()
+			graphGenerate.append("\n new Chart( \n")
+			graphGenerate.append("document.getElementById('myChart'),")
+			graphGenerate.append("{\n")
+			graphGenerate.append("type : ")
+			graphGenerate.append("'").append(chartTypes.get(type)).append("'")
+			graphGenerate.append(", \n")
+			graphGenerate.append("data: { \n labels : ")
+			graphGenerate.append(hasFilter ? 'filteredData': 'data')
+			graphGenerate.append(".map(row => row.")
+			graphGenerate.append(xAxis)
+			graphGenerate.append("), \n")
+			graphGenerate.append("datasets: [")
 		
 		
 		for (var int i = 0; i < keys.size(); i++){
@@ -151,26 +212,59 @@ class MyDslGenerator extends AbstractGenerator {
 			row.append("label : ")
 			row.append("'").append(keys.get(i)).append("'")
 			row.append(", \n")
-			row.append("data: ").append("data.map(row => row.").append(keys.get(i))
+			row.append("data: ")
+			row.append(hasFilter ? 'filteredData': 'data')
+			row.append(".map(row => row.").append(keys.get(i))
 			row.append(" )")
-			row.append("} \n") 
+			row.append(" \n")  
 			if (i !== keys.size() - 1){
-				row.append(", \n")
+				row.append("} ,\n")
 			}
 			graphGenerate.append(row) 
 		}
-		graphGenerate.append("]")
+		if (chartTypes.get(type)=="Pie"||chartTypes.get(type)=="Doughnut" ||chartTypes.get(type)=="BarChart"){
+		graphGenerate.append(",backgroundColor: NAMED_COLORS")}
+		graphGenerate.append("}]")
+		graphGenerate.append("},options: {
+			    scales: {
+			      y: {
+			        beginAtZero: true,
+			        title: {
+                      font: {size: 20
+                      , family:'Helvetica'
+                      }
+                    
+			          ,display: true, 
+                       text:'")
+		for (var int i = 0; i < keys.size(); i++){
+			graphGenerate.append(keys.get(i))
+			if(i===0 && keys.size() > 1){
+				graphGenerate.append(" and ")
+			}  }
+		graphGenerate.append("'}},
+			      x: {
+			        title: {
+                     font: {size: 30},
+			          display: true,")
+	   
+		//for (var int i = 0; i < keys.size()-1; i++){
+		graphGenerate.append("text:").append("'").append(xAxis).append("'")	      
 		graphGenerate.append("}
-			    }
-			  );
-			")
-			
-			
-		var html = '''
+      }
+    }
+  }  
+			  });")	
+	 // generation of the html code 
+	var html=""		
+	if (graphiquesNum.contains(type) && allNumeric) {	
+		 html = '''
 		<!DOCTYPE html>
 		<head>
 		</head>
 		<body>
+		<div style="text-align:center;">
+				<h2>«title»</h2>
+		</div>
 		<div>
 		  <canvas id="myChart"></canvas>
 		</div>
@@ -179,8 +273,85 @@ class MyDslGenerator extends AbstractGenerator {
 		<!-- <script src="https://raw.githubusercontent.com/chartjs/Chart.js/master/docs/scripts/utils.js"></script> -->
 		
 		<script>
+		Chart.defaults.color = '#000';
+		 
+		 const CHART_COLORS = {
+		 redt: 'rgba(255, 99, 132, 0.6)',
+		 red: 'rgb(255, 99, 132)',
+		 orange: 'rgb(255, 159, 64)',
+		 yellow: 'rgb(255, 205, 86)',
+		 green: 'rgb(75, 192, 192)',
+		 bluet: 'rgba(54, 162, 235, 0.6)',
+		 blue: 'rgb(54, 162, 235)',
+		 purple: 'rgb(153, 102, 255)',
+		 grey: 'rgb(201, 203, 207)',
+		 
+		 pink: 'rgb(255, 192, 203)',
+		 brown: 'rgb(165, 42, 42)',
+		 gold: 'rgb(255, 215, 0)',
+		 silver: 'rgb(192, 192, 192)',
+		 navy: 'rgb(0, 0, 128)',
+		 teal: 'rgb(0, 128, 128)',
+		 black: 'rgb(0, 0, 0)',
+		 white: 'rgb(255, 255, 255)',
+		 olive: 'rgb(128, 128, 0)'
+		 };
+		 
+		 const NAMED_COLORS = [
+		 CHART_COLORS.red,
+		 CHART_COLORS.orange,
+		 CHART_COLORS.yellow,
+		 CHART_COLORS.green,
+		 CHART_COLORS.blue,
+		 CHART_COLORS.purple,
+		 CHART_COLORS.grey,
+		 
+		 
+		 CHART_COLORS.pink,
+		 CHART_COLORS.brown,
+		 CHART_COLORS.gold,
+		 CHART_COLORS.silver,
+		 CHART_COLORS.navy,
+		 CHART_COLORS.teal,
+		 CHART_COLORS.black,
+		 CHART_COLORS.white,
+		 CHART_COLORS.olive
+		 ];
+		«data»
 		
 		
+		«hasFilter ? dataFilter: ''»
+		
+		
+		 «graphGenerate»
+		 
+		 
+		</script> 
+		
+		</body>
+		'''
+		
+		}
+ else if (graphiquesCat.contains(type) && !allNumeric){
+ 	
+		 html = '''
+		<!DOCTYPE html>
+		<head>
+		</head>
+		<body>
+		<div style="text-align:center;">
+				<h2>«title»</h2>
+		</div>
+		<div>
+		  <canvas id="myChart"></canvas>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<!-- <script src="https://raw.githubusercontent.com/chartjs/Chart.js/master/docs/scripts/utils.js"></script> -->
+		
+		<script>
+		Chart.defaults.color = '#000';
+		 
 		 const CHART_COLORS = {
 		 redt: 'rgba(255, 99, 132, 0.6)',
 		 red: 'rgb(255, 99, 132)',
@@ -210,25 +381,67 @@ class MyDslGenerator extends AbstractGenerator {
 		 CHART_COLORS.blue,
 		 CHART_COLORS.purple,
 		 CHART_COLORS.grey,
-		 CHART_COLORS.black,
-		 CHART_COLORS.white,
+		 
 		 CHART_COLORS.pink,
 		 CHART_COLORS.brown,
 		 CHART_COLORS.gold,
 		 CHART_COLORS.silver,
 		 CHART_COLORS.navy,
 		 CHART_COLORS.teal,
+		 CHART_COLORS.black,
+		 CHART_COLORS.white,
 		 CHART_COLORS.olive
 		 ];
-		'''
-		+ data + 
-		graphGenerate+
-		'''
+		«data»
+		
+		
+		«hasFilter ? dataFilter: ''»
+		
+		
+		 «graphGenerate»
+		 
+		 
 		</script> 
 		
 		</body>
 		'''
-		fsa.generateFile('programme.html', data)  
+		
+		}
+ // generation of the ERROR Message 
+ else  {
+	 	
+	 	 html = '''
+		<!DOCTYPE html>
+		<head>
+		</head>
+		<body >
+		<style>
+		.alert {
+		  background-color: #f44336;
+		  color: white;
+		  padding: 10px;
+		  text-align: center;
+		  margin-bottom: 15px;
+		  border-radius: 4px;
+		  font-size: 30px;
+		} </style>
+		<div style="text-align: center;font-size: 40px;  solid #8B0000;"">
+				<h2>Attention</h2>
+		</div>
+		
+		<div style="text-align:center;"><script>
+		var errorMessage = document.createElement("p");
+		errorMessage.innerHTML = "Le graphe sélectionné ne fonctionne pas avec les données chargées. Veuillez choisir un autre graphe.";
+		errorMessage.classList.add("alert"); // Ajoute la classe "alert" au message d'erreur
+		document.body.appendChild(errorMessage);
+
+		
+		</script></div>
+		  </body>'''
+	 	
+	 	 
+	 }
+		fsa.generateFile('programme.html', html)  
 
 	}
 }

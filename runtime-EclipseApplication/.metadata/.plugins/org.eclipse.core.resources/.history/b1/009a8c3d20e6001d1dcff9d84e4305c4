@@ -1,0 +1,12 @@
+Programme {
+	
+	path="C:/Users/hp/Downloads/factbook.csv"
+	delimiter=";"
+	keep(colName="model":string index=0,colName="power":float index=37,colName="telephone":int index=41)
+	where ((power > Const float = "5.5" ))
+	type = BubbleChart
+	title = "title" 
+	xAxis = model
+	
+	
+	}

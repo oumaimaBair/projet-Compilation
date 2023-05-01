@@ -1,0 +1,10 @@
+Programme {
+	path="C:/Users/hp/Downloads/factbook.csv"
+	delimiter=";"
+	keep(colName="model":string index=0,colName="power":float index=4)
+	where (Const int = 8)
+	title = "title"
+	xAxis= model
+	yAxis=power 
+	 
+	}

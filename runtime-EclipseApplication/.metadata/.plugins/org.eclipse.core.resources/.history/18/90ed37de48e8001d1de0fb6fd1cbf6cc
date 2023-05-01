@@ -1,0 +1,17 @@
+Programme {
+	
+	path="C:/Users/hp/Downloads/film.csv"
+	delimiter=";"
+	keep(
+		colName="Subject":string index= 3,
+		colName="polarity":float index=7,
+		colName="Length":int index=1
+	)
+	//where((power > Const int = "200" ) && (displacement > Const int = "100" ))  
+	type = BarChart 
+	title = "Analyse de la polarité et de la longueur des sujets de film "       
+	xAxis = Subject          
+	yAxis = (polarity,Length)                        
+	
+	 
+	}    

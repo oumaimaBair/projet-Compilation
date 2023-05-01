@@ -35,14 +35,13 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final RuleCall cInputFileParserRuleCall_2_0 = (RuleCall)cInputAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cWhereKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
-		private final Assignment cFilterconditionAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
-		private final RuleCall cFilterconditionFilterConditionParserRuleCall_3_2_0 = (RuleCall)cFilterconditionAssignment_3_2.eContents().get(0);
-		private final Group cGroup_3_3 = (Group)cGroup_3.eContents().get(3);
-		private final Keyword cCommaKeyword_3_3_0 = (Keyword)cGroup_3_3.eContents().get(0);
-		private final Assignment cFilterconditionAssignment_3_3_1 = (Assignment)cGroup_3_3.eContents().get(1);
-		private final RuleCall cFilterconditionFilterConditionParserRuleCall_3_3_1_0 = (RuleCall)cFilterconditionAssignment_3_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_4 = (Keyword)cGroup_3.eContents().get(4);
+		private final Assignment cFilterconditionAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cFilterconditionFilterConditionParserRuleCall_3_1_0 = (RuleCall)cFilterconditionAssignment_3_1.eContents().get(0);
+		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
+		private final Keyword cAmpersandAmpersandKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
+		private final Assignment cFilterconditionAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
+		private final RuleCall cFilterconditionFilterConditionParserRuleCall_3_2_1_0 = (RuleCall)cFilterconditionAssignment_3_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
 		private final Assignment cOutputAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cOutputHTMLFileParserRuleCall_4_0 = (RuleCall)cOutputAssignment_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
@@ -51,7 +50,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//    'Programme'
 		//    '{'
 		//         input=File
-		//        ('where' '(' filtercondition+=filterCondition ( "," filtercondition+=filterCondition)* ')' )?
+		//        ('where('  filtercondition+=filterCondition ( "&&" filtercondition+=filterCondition)* ')' )?
 		//         output=HTMLFile
 		//    '}';
 		@Override public ParserRule getRule() { return rule; }
@@ -59,7 +58,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'Programme'
 		//'{'
 		//     input=File
-		//    ('where' '(' filtercondition+=filterCondition ( "," filtercondition+=filterCondition)* ')' )?
+		//    ('where('  filtercondition+=filterCondition ( "&&" filtercondition+=filterCondition)* ')' )?
 		//     output=HTMLFile
 		//'}'
 		public Group getGroup() { return cGroup; }
@@ -76,35 +75,32 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//File
 		public RuleCall getInputFileParserRuleCall_2_0() { return cInputFileParserRuleCall_2_0; }
 		
-		//('where' '(' filtercondition+=filterCondition ( "," filtercondition+=filterCondition)* ')' )?
+		//('where('  filtercondition+=filterCondition ( "&&" filtercondition+=filterCondition)* ')' )?
 		public Group getGroup_3() { return cGroup_3; }
 		
-		//'where'
+		//'where('
 		public Keyword getWhereKeyword_3_0() { return cWhereKeyword_3_0; }
 		
-		//'('
-		public Keyword getLeftParenthesisKeyword_3_1() { return cLeftParenthesisKeyword_3_1; }
-		
 		//filtercondition+=filterCondition
-		public Assignment getFilterconditionAssignment_3_2() { return cFilterconditionAssignment_3_2; }
+		public Assignment getFilterconditionAssignment_3_1() { return cFilterconditionAssignment_3_1; }
 		
 		//filterCondition
-		public RuleCall getFilterconditionFilterConditionParserRuleCall_3_2_0() { return cFilterconditionFilterConditionParserRuleCall_3_2_0; }
+		public RuleCall getFilterconditionFilterConditionParserRuleCall_3_1_0() { return cFilterconditionFilterConditionParserRuleCall_3_1_0; }
 		
-		//( "," filtercondition+=filterCondition)*
-		public Group getGroup_3_3() { return cGroup_3_3; }
+		//( "&&" filtercondition+=filterCondition)*
+		public Group getGroup_3_2() { return cGroup_3_2; }
 		
-		//","
-		public Keyword getCommaKeyword_3_3_0() { return cCommaKeyword_3_3_0; }
+		//"&&"
+		public Keyword getAmpersandAmpersandKeyword_3_2_0() { return cAmpersandAmpersandKeyword_3_2_0; }
 		
 		//filtercondition+=filterCondition
-		public Assignment getFilterconditionAssignment_3_3_1() { return cFilterconditionAssignment_3_3_1; }
+		public Assignment getFilterconditionAssignment_3_2_1() { return cFilterconditionAssignment_3_2_1; }
 		
 		//filterCondition
-		public RuleCall getFilterconditionFilterConditionParserRuleCall_3_3_1_0() { return cFilterconditionFilterConditionParserRuleCall_3_3_1_0; }
+		public RuleCall getFilterconditionFilterConditionParserRuleCall_3_2_1_0() { return cFilterconditionFilterConditionParserRuleCall_3_2_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_3_4() { return cRightParenthesisKeyword_3_4; }
+		public Keyword getRightParenthesisKeyword_3_3() { return cRightParenthesisKeyword_3_3; }
 		
 		//output=HTMLFile
 		public Assignment getOutputAssignment_4() { return cOutputAssignment_4; }
@@ -379,16 +375,17 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final CrossReference cYAxisExtractedDataCrossReference_4_1_0 = (CrossReference)cYAxisAssignment_4_1.eContents().get(0);
 		private final RuleCall cYAxisExtractedDataEStringParserRuleCall_4_1_0_1 = (RuleCall)cYAxisExtractedDataCrossReference_4_1_0.eContents().get(1);
 		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
-		private final Keyword cYAxisKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
 		private final Assignment cYAxisAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
 		private final CrossReference cYAxisExtractedDataCrossReference_4_2_1_0 = (CrossReference)cYAxisAssignment_4_2_1.eContents().get(0);
 		private final RuleCall cYAxisExtractedDataEStringParserRuleCall_4_2_1_0_1 = (RuleCall)cYAxisExtractedDataCrossReference_4_2_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		
 		//Graph returns Graph:
 		//        ('type =' type=typeGraph)?
 		//        ('title =' title=EString)?
 		//        'xAxis =' xAxis=[extractedData|EString]
-		//        ('yAxis =' yAxis+=[extractedData|EString] ( "yAxis =" yAxis+=[extractedData|EString])*)?
+		//        ('yAxis = (' yAxis+=[extractedData|EString] ( "," yAxis+=[extractedData|EString])*')')?
 		//        //'yAxis =' ( "yAxis=" yAxis+=[extractedData|EString])*
 		//    ;
 		@Override public ParserRule getRule() { return rule; }
@@ -396,7 +393,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//('type =' type=typeGraph)?
 		//('title =' title=EString)?
 		//'xAxis =' xAxis=[extractedData|EString]
-		//('yAxis =' yAxis+=[extractedData|EString] ( "yAxis =" yAxis+=[extractedData|EString])*)?
+		//('yAxis = (' yAxis+=[extractedData|EString] ( "," yAxis+=[extractedData|EString])*')')?
 		public Group getGroup() { return cGroup; }
 		
 		//('type =' type=typeGraph)?
@@ -435,10 +432,10 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//EString
 		public RuleCall getXAxisExtractedDataEStringParserRuleCall_3_0_1() { return cXAxisExtractedDataEStringParserRuleCall_3_0_1; }
 		
-		//('yAxis =' yAxis+=[extractedData|EString] ( "yAxis =" yAxis+=[extractedData|EString])*)?
+		//('yAxis = (' yAxis+=[extractedData|EString] ( "," yAxis+=[extractedData|EString])*')')?
 		public Group getGroup_4() { return cGroup_4; }
 		
-		//'yAxis ='
+		//'yAxis = ('
 		public Keyword getYAxisKeyword_4_0() { return cYAxisKeyword_4_0; }
 		
 		//yAxis+=[extractedData|EString]
@@ -450,11 +447,11 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//EString
 		public RuleCall getYAxisExtractedDataEStringParserRuleCall_4_1_0_1() { return cYAxisExtractedDataEStringParserRuleCall_4_1_0_1; }
 		
-		//( "yAxis =" yAxis+=[extractedData|EString])*
+		//( "," yAxis+=[extractedData|EString])*
 		public Group getGroup_4_2() { return cGroup_4_2; }
 		
-		//"yAxis ="
-		public Keyword getYAxisKeyword_4_2_0() { return cYAxisKeyword_4_2_0; }
+		//","
+		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
 		
 		//yAxis+=[extractedData|EString]
 		public Assignment getYAxisAssignment_4_2_1() { return cYAxisAssignment_4_2_1; }
@@ -464,6 +461,9 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		
 		//EString
 		public RuleCall getYAxisExtractedDataEStringParserRuleCall_4_2_1_0_1() { return cYAxisExtractedDataEStringParserRuleCall_4_2_1_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4_3() { return cRightParenthesisKeyword_4_3; }
 	}
 	public class ConstantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.unice.cotedazur.l3ia.chart.MyDsl.Constant");
@@ -835,7 +835,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	//    'Programme'
 	//    '{'
 	//         input=File
-	//        ('where' '(' filtercondition+=filterCondition ( "," filtercondition+=filterCondition)* ')' )?
+	//        ('where('  filtercondition+=filterCondition ( "&&" filtercondition+=filterCondition)* ')' )?
 	//         output=HTMLFile
 	//    '}';
 	public ProgrammeElements getProgrammeAccess() {
@@ -928,7 +928,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	//        ('type =' type=typeGraph)?
 	//        ('title =' title=EString)?
 	//        'xAxis =' xAxis=[extractedData|EString]
-	//        ('yAxis =' yAxis+=[extractedData|EString] ( "yAxis =" yAxis+=[extractedData|EString])*)?
+	//        ('yAxis = (' yAxis+=[extractedData|EString] ( "," yAxis+=[extractedData|EString])*')')?
 	//        //'yAxis =' ( "yAxis=" yAxis+=[extractedData|EString])*
 	//    ;
 	public GraphElements getGraphAccess() {

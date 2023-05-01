@@ -1,0 +1,17 @@
+Programme {
+	
+	path="C:/Users/hp/Downloads/factbook.csv"
+	delimiter=";"
+	keep(colName="Country":string index= 0,colName="Population":float index=37,colName="cellular":float index=41
+	)
+	//where((power > Const int = "200" ) && (displacement > Const int = "100" ))  
+	type = LineChart 
+	title = "Senario 2 : Evolution de la population et de l'utilisation du téléphone portable par pays"       
+	xAxis = Country          
+	yAxis = (Population,cellular)                    
+	         
+	     
+	  
+	 
+	           
+	}    

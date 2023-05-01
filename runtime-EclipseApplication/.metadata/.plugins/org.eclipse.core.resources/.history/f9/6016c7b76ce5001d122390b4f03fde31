@@ -1,0 +1,11 @@
+Programme {
+	path="C:/Users/hp/Downloads/factbook.csv"
+	delimiter=";"
+	keep(colName="model":string index=0,colName="power":float index=4)
+	where ((power > Const float = "5.5" ))
+	type = BarChart
+	title = "title" 
+	xAxis= model
+	yAxis=power
+	
+	}

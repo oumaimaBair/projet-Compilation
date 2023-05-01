@@ -1,0 +1,27 @@
+Programme {
+	input File {
+		path "C:/Users/hp/Downloads/cars.csv"
+		delimiter ";"
+	 	keep {
+			extractedData model {
+				typeData string
+		 		index 0
+			},  
+			extractedData power {
+				typeData float
+				index 4
+			}  
+		}       
+	} 
+	output HTMLFile { 
+		graph {
+			Graph {
+				type LineChart
+				title "scenario"
+				xAxis model
+				yAxis (power)
+			}
+		}
+	}	
+	
+}

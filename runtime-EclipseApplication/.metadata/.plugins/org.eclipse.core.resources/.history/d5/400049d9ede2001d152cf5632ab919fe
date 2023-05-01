@@ -1,0 +1,31 @@
+Programme {
+	input File {
+		path "C:/Users/hp/Downloads/factbook.csv"
+		delimiter ";"
+	 	keep {
+			extractedData country {
+				typeData string
+		 		index 0
+			},  
+			extractedData population {
+				typeData float
+				index 38
+ 	 		},
+ 	 		extractedData cellular {
+				typeData float
+				index 42
+ 	 		}   
+		}            
+	}     
+	output HTMLFile { 
+		graph {
+			Graph { 
+				type LineChart
+				title "scenario"
+				xAxis country
+				yAxis (population, cellular)
+			}
+		}
+	}	
+	
+}

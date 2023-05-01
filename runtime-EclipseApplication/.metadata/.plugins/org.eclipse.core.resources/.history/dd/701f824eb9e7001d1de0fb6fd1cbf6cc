@@ -1,0 +1,17 @@
+Programme {
+	
+	path="C:/Users/hp/Downloads/cars.csv"
+	delimiter=";"
+	keep(colName="model":string index= 0,colName="power":float index=4
+	)
+	//where((power > Const int = "200" ) && (displacement > Const int = "100" ))  
+	type = BarChart 
+	title = "Senario 1:Diagramme en barres de la puissance des modèles de voitures"       
+	xAxis = model          
+	yAxis = (power)                    
+	          
+	     
+	 
+	 
+	           
+	}    

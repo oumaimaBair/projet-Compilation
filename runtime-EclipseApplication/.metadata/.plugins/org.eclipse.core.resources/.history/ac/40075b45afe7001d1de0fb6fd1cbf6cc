@@ -1,0 +1,17 @@
+Programme {
+	
+	path="C:/Users/hp/Downloads/cars.csv"
+	delimiter=";"
+	keep(colName="power":float index=0,colName="displacement":int index=8
+	)
+	//where((power > Const int = "200" ) && (displacement > Const int = "100" ))  
+	type = LineChart  
+	title = "first chart"       
+	xAxis = displacement          
+	yAxis = (power)                      
+	         
+	     
+	 
+	 
+	    
+	}    

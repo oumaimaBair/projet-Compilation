@@ -1,0 +1,16 @@
+Programme {
+	
+	path="C:/Users/hp/Downloads/cars.csv"
+	delimiter=";"
+	keep(colName="model":string index= 0,colName="power":float index=2,colName="telephone":int index=3
+	)
+	where ((model == Const string = "Ford Fiesta" )) 
+	type = LineChart
+	title = "title"      
+	xAxis = model   
+	yAxis = power         
+	 
+	
+	 
+	  
+	}  

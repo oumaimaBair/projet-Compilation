@@ -98,22 +98,22 @@ public enum typeGraph implements Enumerator {
 	 */
 	POLAR_AREA_CHART(7, "PolarAreaChart", "PolarAreaChart"),
 	/**
-	* The '<em><b>Doughnut</b></em>' literal object.
-	* <!-- begin-user-doc -->
+	 * The '<em><b>Doughnut</b></em>' literal object.
+	 * <!-- begin-user-doc -->
 	* <!-- end-user-doc -->
-	* @see #DOUGHNUT_VALUE
-	* @generated
-	* @ordered
-	*/
+	 * @see #DOUGHNUT_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	DOUGHNUT(8, "Doughnut", "Doughnut"),
 	/**
-	* The '<em><b>Pie</b></em>' literal object.
-	* <!-- begin-user-doc -->
+	 * The '<em><b>Pie</b></em>' literal object.
+	 * <!-- begin-user-doc -->
 	* <!-- end-user-doc -->
-	* @see #PIE_VALUE
-	* @generated
-	* @ordered
-	*/
+	 * @see #PIE_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	PIE(9, "Pie", "Pie");
 
 	/**
